@@ -2,8 +2,8 @@ package com.api.torhugo.resource;
 
 import com.api.torhugo.domain.dto.BalanceDTO;
 import com.api.torhugo.domain.dto.UserDTO;
+import com.api.torhugo.domain.enums.TypeBalance;
 import com.api.torhugo.service.BalanceService;
-import com.api.torhugo.service.UserService;
 import com.api.torhugo.util.ApplicationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +21,10 @@ public class BalanceResource {
     @Autowired
     private ApplicationResponse response;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<BalanceDTO> createdBalance(
             @RequestBody final BalanceDTO balanceDTO){
-        final BalanceDTO balance = service.createdBalance(balanceDTO);
+        final BalanceDTO balance = service.createdBalance(balanceDTO, balanceDTO.getIdWallet());
         return ResponseEntity.status(response.created).body(balance);
     }
 
@@ -32,6 +32,14 @@ public class BalanceResource {
     public ResponseEntity<List<BalanceDTO>> findAllByWalletId(
             @PathVariable final Long idWallet){
         List<BalanceDTO> dto = service.findAll(idWallet);
+        return ResponseEntity.status(response.successful).body(dto);
+    }
+
+    @GetMapping("/movement/{idWallet}")
+    public ResponseEntity<UserDTO> findAllDepositByWalletId(
+            @PathVariable final Long idWallet,
+            @RequestParam final TypeBalance typeBalance){
+        UserDTO dto = service.findAllMoviment(idWallet, typeBalance);
         return ResponseEntity.status(response.successful).body(dto);
     }
 }

@@ -1,5 +1,6 @@
 package com.api.torhugo.domain.entity;
 
+import com.api.torhugo.domain.enums.TypeBalance;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,4 +24,6 @@ public class BalanceModel {
     private LocalDate additionDate;
     @Column(name = "id_wallet")
     private Long idWallet;
+    @Column(name = "type_balance")
+    private TypeBalance typeBalance;
 }

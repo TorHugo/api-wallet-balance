@@ -2,6 +2,7 @@ package com.api.torhugo.domain.dto;
 
 import com.api.torhugo.domain.entity.BalanceModel;
 import com.api.torhugo.domain.entity.UserModel;
+import com.api.torhugo.domain.enums.TypeBalance;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -20,11 +21,14 @@ public class BalanceDTO {
     private LocalDate additionDate;
     private Long idWallet;
 
+    private TypeBalance typeBalance;
+
     public BalanceDTO(BalanceModel balanceModel){
         this.idBalance = balanceModel.getIdBalance();
         this.description = balanceModel.getDescription();
         this.balanceValue = balanceModel.getBalanceValue();
         this.additionDate = balanceModel.getAdditionDate();
         this.idWallet = balanceModel.getIdWallet();
+        this.typeBalance = balanceModel.getTypeBalance();
     }
 }
