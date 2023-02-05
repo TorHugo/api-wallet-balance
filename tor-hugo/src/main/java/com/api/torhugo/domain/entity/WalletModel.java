@@ -3,7 +3,9 @@ package com.api.torhugo.domain.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -15,5 +17,5 @@ public class WalletModel {
     @Column(name = "id_wallet")
     private Long idWallet;
     @OneToMany
-    private Set<BalanceModel> lsBalance = new HashSet<>();
+    private List<BalanceModel> lsBalance = new ArrayList<>();
 }

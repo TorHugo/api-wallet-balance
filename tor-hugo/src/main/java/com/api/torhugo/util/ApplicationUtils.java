@@ -10,10 +10,8 @@ import java.time.LocalDate;
 @Component
 public class ApplicationUtils {
 
-    public static Logger logger = LoggerFactory.getLogger(Class.class);
-
     public String isStringNull(final String atribute){
-        return isNull(atribute).equals(Boolean.FALSE) ? atribute : "Atribute is null.";
+        return isNull(atribute).equals(Boolean.FALSE) ? atribute : null;
     }
     public Boolean isNull(final String atribute){
         return atribute == null ? Boolean.TRUE : Boolean.FALSE;

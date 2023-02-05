@@ -25,5 +25,6 @@ public class BalanceDTO {
         this.description = balanceModel.getDescription();
         this.balanceValue = balanceModel.getBalanceValue();
         this.additionDate = balanceModel.getAdditionDate();
+        this.idWallet = balanceModel.getIdWallet();
     }
 }

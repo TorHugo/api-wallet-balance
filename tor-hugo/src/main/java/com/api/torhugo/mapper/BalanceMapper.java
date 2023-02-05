@@ -15,8 +15,9 @@ public class BalanceMapper {
         BalanceModel model = new BalanceModel();
         model.setIdBalance(utils.convertToLong(dto.getIdBalance()));
         model.setDescription(utils.isStringNull(dto.getDescription()));
-        model.setBalanceValue(utils.convertToBigDecimal(dto.getBalanceValue()));
+        model.setBalanceValue(dto.getBalanceValue());
         model.setAdditionDate(utils.validationExistingDate(dto.getAdditionDate()));
+        model.setIdWallet(utils.convertToLong(dto.getIdWallet()));
 
         return model;
     }
