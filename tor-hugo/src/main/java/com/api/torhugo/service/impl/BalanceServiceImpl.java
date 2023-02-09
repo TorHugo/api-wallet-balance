@@ -1,10 +1,12 @@
 package com.api.torhugo.service.impl;
 
 import com.api.torhugo.domain.dto.BalanceDTO;
+import com.api.torhugo.domain.dto.LsBalanceDTO;
 import com.api.torhugo.domain.dto.UserDTO;
 import com.api.torhugo.domain.entity.BalanceModel;
 import com.api.torhugo.domain.entity.UserModel;
 import com.api.torhugo.domain.enums.TypeBalance;
+import com.api.torhugo.exception.impl.DataBaseException;
 import com.api.torhugo.mapper.BalanceMapper;
 import com.api.torhugo.repository.BalanceRepository;
 import com.api.torhugo.repository.UserRepository;
@@ -41,70 +43,66 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public BalanceDTO createdBalance(final BalanceDTO balance, final Long idUser) {
-
-        sw.start();
-        logger.info("1. Validating exists wallet in the database for id user {}.", balance.getIdBalance());
+        logger.info("1. Validating exists user wallet in the database for idUser {}.", idUser);
         UserModel user = findByIdUser(idUser);
-        sw.stop();
 
-        sw.start("mapper");
         logger.info("2. Mapping the balance.");
         BalanceModel model = balanceMapper.mapper(balance);
-        sw.stop();
 
-        sw.start("save");
         logger.info("3. Saving balance in database.");
         repository.save(model);
-        sw.stop();
 
         return new BalanceDTO(model);
     }
 
     @Override
-    public List<BalanceDTO> findAll(final Long idWallet) {
+    public List<BalanceDTO> createdLsBalance(final LsBalanceDTO lsBalanceDTO) {
+        logger.info("1. Validating exists user wallet in the database for idUser {}.", lsBalanceDTO.getIdUser());
+        UserModel user = findByIdUser(lsBalanceDTO.getIdUser());
 
-        sw.start("findAllBalanceByWalletId");
+        lsBalanceDTO.getLsBalance().forEach(balance -> {
+            logger.info("2. Mapping the balance.");
+            BalanceModel model = balanceMapper.mapper(balance);
+
+            logger.info("3. Saving balance in database.");
+            repository.save(model);
+        });
+
+        return lsBalanceDTO.getLsBalance().stream().map(BalanceDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BalanceDTO> findAll(final Long idWallet) {
         logger.info("1. Searching wallet in the database for idWallet {}.", idWallet);
         List<BalanceModel> lsModel = repository.findAllBalanceByWalletId(idWallet);
-        sw.stop();
 
         return lsModel.stream().map(BalanceDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public UserDTO findAllMoviment(final Long idWallet, final TypeBalance typeBalance) {
-        if (typeBalance.equals(TypeBalance.DEPOSIT)){
-
-            sw.start("findById");
+        if (typeBalance.equals(TypeBalance.PAYIN)){
             logger.info("1. Searching user by id: {} in database.", idWallet);
-            UserModel model = userRepository.findById(idWallet).orElseThrow();
-            sw.stop();
+            UserModel model = findByIdUser(idWallet);
 
-            sw.start("findAllBalanceByDeposit");
             logger.info("1. Searching all deposit in the database, for wallet {}.", idWallet);
             List<BalanceModel> lsBalance = repository.findAllBalanceByDeposit();
             model.getWalletModel().setLsBalance(lsBalance);
-            sw.stop();
 
             return new UserDTO(model);
         } else {
-
-            sw.start("findById");
             logger.info("1. Searching user by id: {} in database.", idWallet);
-            UserModel model = userRepository.findById(idWallet).orElseThrow();
-            sw.stop();
+            UserModel model = findByIdUser(idWallet);
 
-            sw.start("findAllBalanceByOutflow");
             logger.info("1. Searching all outflow in the database, for wallet {}.", idWallet);
             List<BalanceModel> lsBalance = repository.findAllBalanceByOutflow();
             model.getWalletModel().setLsBalance(lsBalance);
-            sw.stop();
 
             return new UserDTO(model);
         }
     }
 
     private UserModel findByIdUser(final Long idUser){
-        return userRepository.findById(idUser).orElseThrow();
+        return userRepository.findById(idUser).orElseThrow(()-> new DataBaseException("Entity not found."));
     }
 }

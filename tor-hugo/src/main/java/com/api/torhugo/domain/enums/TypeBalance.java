@@ -9,8 +9,8 @@ import java.util.Arrays;
 @Getter
 public enum TypeBalance {
 
-    DEPOSIT(1L),
-    OUT(2L);
+    PAYIN(1L),
+    PAYOUT(2L);
 
     private Long idType;
 

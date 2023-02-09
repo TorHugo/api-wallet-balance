@@ -1,6 +1,7 @@
 package com.api.torhugo.resource;
 
 import com.api.torhugo.domain.dto.BalanceDTO;
+import com.api.torhugo.domain.dto.LsBalanceDTO;
 import com.api.torhugo.domain.dto.UserDTO;
 import com.api.torhugo.domain.enums.TypeBalance;
 import com.api.torhugo.service.BalanceService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,6 +28,14 @@ public class BalanceResource {
             @RequestBody final BalanceDTO balanceDTO){
         final BalanceDTO balance = service.createdBalance(balanceDTO, balanceDTO.getIdWallet());
         return ResponseEntity.status(response.created).body(balance);
+    }
+
+    @PostMapping("/list")
+    public ResponseEntity<List<BalanceDTO>> createdLsBalance(
+            @RequestBody final LsBalanceDTO lsBalanceDTO){
+
+        final List<BalanceDTO> lsBalance = service.createdLsBalance(lsBalanceDTO);
+        return ResponseEntity.status(response.created).body(lsBalance);
     }
 
     @GetMapping("/{idWallet}")
