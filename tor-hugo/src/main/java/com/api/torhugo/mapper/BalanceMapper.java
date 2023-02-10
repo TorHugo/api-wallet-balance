@@ -22,4 +22,16 @@ public class BalanceMapper {
 
         return model;
     }
+
+    public BalanceModel mapper(final BalanceModel dto){
+        BalanceModel model = new BalanceModel();
+        model.setIdBalance(utils.convertToLong(dto.getIdBalance()));
+        model.setDescription(utils.isStringNull(dto.getDescription()));
+        model.setBalanceValue(dto.getBalanceValue());
+        model.setAdditionDate(utils.validationExistingDate(dto.getAdditionDate()));
+        model.setIdWallet(utils.convertToLong(dto.getIdWallet()));
+        model.setTypeBalance(dto.getTypeBalance());
+
+        return model;
+    }
 }

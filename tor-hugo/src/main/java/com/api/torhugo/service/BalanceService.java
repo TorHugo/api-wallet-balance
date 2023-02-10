@@ -13,4 +13,8 @@ public interface BalanceService {
     List<BalanceDTO> createdLsBalance(LsBalanceDTO lsBalance);
     List<BalanceDTO> findAll(Long idWallet);
     UserDTO findAllMoviment(Long idWallet, TypeBalance typeBalance);
+
+    BalanceDTO updateBalance(Long idBalance, BalanceDTO balanceDTO);
+
+    void delete(Long idBalance);
 }

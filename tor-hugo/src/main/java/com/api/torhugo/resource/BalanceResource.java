@@ -52,4 +52,19 @@ public class BalanceResource {
         UserDTO dto = service.findAllMoviment(idWallet, typeBalance);
         return ResponseEntity.status(response.successful).body(dto);
     }
+
+    @PutMapping()
+    public ResponseEntity<BalanceDTO> update(
+            @RequestBody final BalanceDTO dto){
+
+        BalanceDTO balance = service.updateBalance(dto.getIdBalance(), dto);
+        return ResponseEntity.status(response.successful).body(balance);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> delete(
+            @PathVariable final Long id){
+        service.delete(id);
+        return ResponseEntity.status(response.noContent).build();
+    }
 }

@@ -102,7 +102,36 @@ public class BalanceServiceImpl implements BalanceService {
         }
     }
 
+    @Override
+    public BalanceDTO updateBalance(Long idBalance, BalanceDTO balanceDTO) {
+        logger.info("1. Searching balance by id: {} in database.", idBalance);
+        BalanceModel recuperedBalance = findByIdBalance(idBalance);
+
+        logger.info("2. Mapping the user.");
+        recuperedBalance = balanceMapper.mapper(recuperedBalance);
+
+        sw.start("save");
+        logger.info("3. Saving user in database.");
+        recuperedBalance = repository.save(recuperedBalance);
+        sw.stop();
+
+        return new BalanceDTO(recuperedBalance);
+    }
+
+    @Override
+    public void delete(Long idBalance) {
+        logger.info("1. Searching balance by id: {} in database.", idBalance);
+        BalanceModel recuperedBalance = findByIdBalance(idBalance);
+
+        logger.info("2. Deleting balance by id: {}.", idBalance);
+        repository.delete(recuperedBalance);
+    }
+
     private UserModel findByIdUser(final Long idUser){
         return userRepository.findById(idUser).orElseThrow(()-> new DataBaseException("Entity not found."));
+    }
+
+    private BalanceModel findByIdBalance(final Long idBalance){
+        return repository.findById(idBalance).orElseThrow(()-> new DataBaseException("Entity not found."));
     }
 }
