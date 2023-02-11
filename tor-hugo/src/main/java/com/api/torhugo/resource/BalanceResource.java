@@ -1,6 +1,7 @@
 package com.api.torhugo.resource;
 
 import com.api.torhugo.domain.dto.BalanceDTO;
+import com.api.torhugo.domain.dto.DeleteBalanceDTO;
 import com.api.torhugo.domain.dto.LsBalanceDTO;
 import com.api.torhugo.domain.dto.UserDTO;
 import com.api.torhugo.domain.enums.TypeBalance;
@@ -62,9 +63,16 @@ public class BalanceResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> delete(
+    public ResponseEntity<BalanceDTO> delete(
             @PathVariable final Long id){
         service.delete(id);
+        return ResponseEntity.status(response.noContent).build();
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<UserDTO> delete(
+            @RequestBody final DeleteBalanceDTO deleteBalanceDTO){
+        service.delete(deleteBalanceDTO);
         return ResponseEntity.status(response.noContent).build();
     }
 }

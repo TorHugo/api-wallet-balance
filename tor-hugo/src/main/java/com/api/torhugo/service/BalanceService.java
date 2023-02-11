@@ -1,6 +1,7 @@
 package com.api.torhugo.service;
 
 import com.api.torhugo.domain.dto.BalanceDTO;
+import com.api.torhugo.domain.dto.DeleteBalanceDTO;
 import com.api.torhugo.domain.dto.LsBalanceDTO;
 import com.api.torhugo.domain.dto.UserDTO;
 import com.api.torhugo.domain.enums.TypeBalance;
@@ -17,4 +18,5 @@ public interface BalanceService {
     BalanceDTO updateBalance(Long idBalance, BalanceDTO balanceDTO);
 
     void delete(Long idBalance);
+    void delete(DeleteBalanceDTO deleteBalanceDTO);
 }

@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 @ToString
 public class BalanceDTO {
-    @JsonIgnore
     private Long idBalance;
     private String description;
     private BigDecimal balanceValue;
