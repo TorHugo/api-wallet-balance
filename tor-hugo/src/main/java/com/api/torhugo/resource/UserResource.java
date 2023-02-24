@@ -1,6 +1,6 @@
 package com.api.torhugo.resource;
 
-import com.api.torhugo.domain.dto.UserDTO;
+import com.api.torhugo.model.dto.UserDTO;
 import com.api.torhugo.service.UserService;
 import com.api.torhugo.util.ApplicationResponse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.api.torhugo.mapper;
 
-import com.api.torhugo.domain.dto.BalanceDTO;
-import com.api.torhugo.domain.entity.BalanceModel;
+import com.api.torhugo.model.dto.BalanceDTO;
+import com.api.torhugo.model.entity.BalanceModel;
 import com.api.torhugo.util.ApplicationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

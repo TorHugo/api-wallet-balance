@@ -1,4 +1,4 @@
-package com.api.torhugo.domain.dto;
+package com.api.torhugo.model.dto;
 
 import lombok.*;
 

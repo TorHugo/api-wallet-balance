@@ -1,4 +1,4 @@
-package com.api.torhugo.domain.enums;
+package com.api.torhugo.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

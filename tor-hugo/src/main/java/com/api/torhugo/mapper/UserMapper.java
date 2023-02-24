@@ -1,8 +1,8 @@
 package com.api.torhugo.mapper;
 
-import com.api.torhugo.domain.dto.UserDTO;
-import com.api.torhugo.domain.entity.UserModel;
-import com.api.torhugo.domain.entity.WalletModel;
+import com.api.torhugo.model.dto.UserDTO;
+import com.api.torhugo.model.entity.UserModel;
+import com.api.torhugo.model.entity.WalletModel;
 import com.api.torhugo.util.ApplicationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

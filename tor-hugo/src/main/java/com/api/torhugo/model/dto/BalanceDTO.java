@@ -1,12 +1,9 @@
-package com.api.torhugo.domain.dto;
+package com.api.torhugo.model.dto;
 
-import com.api.torhugo.domain.entity.BalanceModel;
-import com.api.torhugo.domain.entity.UserModel;
-import com.api.torhugo.domain.enums.TypeBalance;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.api.torhugo.model.entity.BalanceModel;
+import com.api.torhugo.model.enums.TypeBalance;
 import lombok.*;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;

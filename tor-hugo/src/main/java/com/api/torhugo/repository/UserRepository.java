@@ -1,6 +1,6 @@
 package com.api.torhugo.repository;
 
-import com.api.torhugo.domain.entity.UserModel;
+import com.api.torhugo.model.entity.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

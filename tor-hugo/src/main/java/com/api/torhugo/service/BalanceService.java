@@ -1,12 +1,11 @@
 package com.api.torhugo.service;
 
-import com.api.torhugo.domain.dto.BalanceDTO;
-import com.api.torhugo.domain.dto.DeleteBalanceDTO;
-import com.api.torhugo.domain.dto.LsBalanceDTO;
-import com.api.torhugo.domain.dto.UserDTO;
-import com.api.torhugo.domain.enums.TypeBalance;
+import com.api.torhugo.model.dto.BalanceDTO;
+import com.api.torhugo.model.dto.DeleteBalanceDTO;
+import com.api.torhugo.model.dto.LsBalanceDTO;
+import com.api.torhugo.model.dto.UserDTO;
+import com.api.torhugo.model.enums.TypeBalance;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface BalanceService {

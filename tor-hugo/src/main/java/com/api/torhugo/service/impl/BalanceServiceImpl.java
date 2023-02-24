@@ -1,12 +1,12 @@
 package com.api.torhugo.service.impl;
 
-import com.api.torhugo.domain.dto.BalanceDTO;
-import com.api.torhugo.domain.dto.DeleteBalanceDTO;
-import com.api.torhugo.domain.dto.LsBalanceDTO;
-import com.api.torhugo.domain.dto.UserDTO;
-import com.api.torhugo.domain.entity.BalanceModel;
-import com.api.torhugo.domain.entity.UserModel;
-import com.api.torhugo.domain.enums.TypeBalance;
+import com.api.torhugo.model.dto.BalanceDTO;
+import com.api.torhugo.model.dto.DeleteBalanceDTO;
+import com.api.torhugo.model.dto.LsBalanceDTO;
+import com.api.torhugo.model.dto.UserDTO;
+import com.api.torhugo.model.entity.BalanceModel;
+import com.api.torhugo.model.entity.UserModel;
+import com.api.torhugo.model.enums.TypeBalance;
 import com.api.torhugo.exception.impl.DataBaseException;
 import com.api.torhugo.mapper.BalanceMapper;
 import com.api.torhugo.repository.BalanceRepository;

@@ -1,6 +1,6 @@
 package com.api.torhugo.service;
 
-import com.api.torhugo.domain.dto.UserDTO;
+import com.api.torhugo.model.dto.UserDTO;
 
 import java.util.List;
 

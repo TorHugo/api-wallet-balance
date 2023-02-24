@@ -1,13 +1,11 @@
 package com.api.torhugo.repository;
 
-import com.api.torhugo.domain.entity.BalanceModel;
-import com.api.torhugo.domain.enums.TypeBalance;
+import com.api.torhugo.model.entity.BalanceModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository

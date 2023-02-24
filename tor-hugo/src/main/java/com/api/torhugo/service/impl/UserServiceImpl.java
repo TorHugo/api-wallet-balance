@@ -1,8 +1,9 @@
 package com.api.torhugo.service.impl;
 
-import com.api.torhugo.domain.dto.UserDTO;
-import com.api.torhugo.domain.entity.BalanceModel;
-import com.api.torhugo.domain.entity.UserModel;
+import com.api.torhugo.model.dto.UserDTO;
+import com.api.torhugo.model.entity.BalanceModel;
+import com.api.torhugo.model.entity.UserModel;
+import com.api.torhugo.exception.impl.DataBaseException;
 import com.api.torhugo.mapper.UserMapper;
 import com.api.torhugo.repository.BalanceRepository;
 import com.api.torhugo.repository.UserRepository;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BalanceRepository balanceRepository;
 
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private UserMapper userMapper;
 
@@ -37,6 +42,7 @@ public class UserServiceImpl implements UserService {
         sw.start("mapper");
         log.info("1. Mapping the user.");
         final UserModel model = userMapper.mapper(dto);
+//        passwordEnconder(model, model.getPassword());
         sw.stop();
 
         sw.start("save");
@@ -52,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
         sw.start("findById");
         log.info("1. Searching user by id: {} in database.", idUser);
-        UserModel model = repository.findById(idUser).orElseThrow();
+        UserModel model = repository.findById(idUser).orElseThrow(()-> new DataBaseException("Entity not found."));
         sw.stop();
 
         sw.start("findAllBalanceByWalletId");
@@ -111,7 +117,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserModel findByIdUser(final Long idUser){
-        return repository.findById(idUser).orElseThrow();
+        return repository.findById(idUser).orElseThrow(()-> new DataBaseException("Entity not found."));
     }
+
+//    private void passwordEnconder(final UserModel entity, final String password){
+//        entity.setPassword(passwordEncoder.encode(password));
+//    }
 
 }

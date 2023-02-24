@@ -1,6 +1,6 @@
-package com.api.torhugo.domain.entity;
+package com.api.torhugo.model.entity;
 
-import com.api.torhugo.domain.enums.TypeBalance;
+import com.api.torhugo.model.enums.TypeBalance;
 import lombok.Data;
 
 import javax.persistence.*;
