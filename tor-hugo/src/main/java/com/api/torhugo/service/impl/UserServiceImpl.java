@@ -10,9 +10,12 @@ import com.api.torhugo.repository.UserRepository;
 import com.api.torhugo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     final StopWatch sw =  new StopWatch();
 
     @Autowired
@@ -30,8 +33,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BalanceRepository balanceRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserMapper userMapper;
@@ -42,7 +45,7 @@ public class UserServiceImpl implements UserService {
         sw.start("mapper");
         log.info("1. Mapping the user.");
         final UserModel model = userMapper.mapper(dto);
-//        passwordEnconder(model, model.getPassword());
+        passwordEnconder(model, model.getPassword());
         sw.stop();
 
         sw.start("save");
@@ -120,8 +123,18 @@ public class UserServiceImpl implements UserService {
         return repository.findById(idUser).orElseThrow(()-> new DataBaseException("Entity not found."));
     }
 
-//    private void passwordEnconder(final UserModel entity, final String password){
-//        entity.setPassword(passwordEncoder.encode(password));
-//    }
+    private void passwordEnconder(final UserModel entity, final String password){
+        entity.setPassword(passwordEncoder.encode(password));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        log.info("1. Searching user in the database, by user email {}", email);
+        UserModel user = repository.findByEmail(email);
+        if (user == null)
+            throw new UsernameNotFoundException("Email not found.");
+
+        return user;
+    }
 
 }
